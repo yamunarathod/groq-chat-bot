@@ -1,0 +1,5 @@
+Hotel_id,wifi,hot_water,tv,parking,No_of_rooms,Category,Contact,data_id
+1,true,true,true,two wheeler,126,*****,2345671891,1
+2,false,true,true,two weeler and 4wheelwe,88,***,1234567891,2
+3,true,true,true,two wheeler,22,*****,1234567891,3
+4,true,false,false,two wheeler,44,**,33445455556,4
