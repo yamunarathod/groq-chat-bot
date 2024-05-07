@@ -7,30 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import duckdb
 import sqlparse
-import csv
-from pymongo import MongoClient
 
-mongo_URI = "mongodb+srv://yamuna:Dbnd0ki7s3DC0DQ3@cluster0.v6kew10.mongodb.net/groq_data"
-MongoClient = MongoClient(mongo_URI)
-
-db = MongoClient['groq_data']
-hotels_collection = db['hotels']
-details_collection = db['details']
-def load_csv_to_mongodb(file_path, collection, headers, unique_key):
-    with open(file_path, 'r', newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            query = {unique_key: row[unique_key]}  # Query to check if the document exists
-            update_data = {header: row[header] for header in headers}
-            update_action = {"$set": update_data}  # Update the document with the data from CSV
-            collection.update_one(query, update_action, upsert=True)  # Upsert option
-
-# Usage of the function with an example unique_key for both collections
-hotel_headers = ['Hotel_id', 'hotel_name', 'Location']
-load_csv_to_mongodb('data/hotels.csv', hotels_collection, hotel_headers, 'Hotel_id')
-
-details_headers = ['Hotel_id', 'wifi', 'hot_water', 'tv', 'parking', 'No_of_rooms', 'Category', 'Contact', 'data_id']
-load_csv_to_mongodb('data/details.csv', details_collection, details_headers, 'data_id')
 
 def main():
     """
